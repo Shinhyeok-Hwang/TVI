@@ -11,6 +11,14 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
     thanos_vacation = result.thanos_vacation;
     ironman_love = result.ironman_love;
     activated = result.activated;
+    if(!result.hasOwnProperty('thanos_power'))
+      thanos_power = 3;
+    if(!result.hasOwnProperty('thanos_vacation'))
+      thanos_vacation = 30;
+    if(!result.hasOwnProperty('ironman_love'))
+      ironman_love = 3;
+    if(!result.hasOwnProperty('activated'))
+      activated = 1;
     console.log(activated);
     date = result.date;
     console.log((new Date()).getTime() - date);
@@ -23,7 +31,7 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
     else{
       activated = 0;
     }
-  
+
     console.log(result);
 
     if(activated == 0){
