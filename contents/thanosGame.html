@@ -4,11 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="thanosGame.css">
+    <title>Thanos versus Iron man</title>
 </head>
-<body id="body">
-    <h1 id="h1_text">Thanos is sleeping</h1>
-    <progress value="0" max="100" id="progressBar"></progress>
+<body id = "background">
+    <div id = iron_man></div>
+    <div id = "thanos"></div>
+
+    <div id = "command">
+        <div id = "cmd">
+            <p align = "center">command</p>
+        </div>
+        <script src="thanosGame.js"></script>
+    </div>
+
+    <div id = "timer" align = "center">
+        <progress value="0" max="100" id="progressBar"></progress>
+    </div>
+
+    <div id = "message_bar" align = "center">
+        <p id = "message_eng">Enter the command within the time limit</p>
+        <p id = "message_kor">제한 시간 내에 커맨드를 입력하세요</p>
+    </div>
 </body>
-<script src="thanosGame.js"></script>
+
 </html>
