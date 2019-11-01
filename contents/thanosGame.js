@@ -3,6 +3,8 @@ var thanos_power = 2;
 var thanos_vacation = 100;
 var ironman_love = 3000;
 
+var inputs = ['up', 'down', 'left', 'right', 'space'];
+
 chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironman_love', 'date'],
   function(result){
     thanos_power = result.thanos_power;
@@ -12,12 +14,20 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
     thanos_vacation *= 1;
     ironman_love *= 1;
     activated = result.activated;
+    if(!result.hasOwnProperty('thanos_power'))
+      thanos_power = 3;
+    if(!result.hasOwnProperty('thanos_vacation'))
+      thanos_vacation = 30;
+    if(!result.hasOwnProperty('ironman_love'))
+      ironman_love = 3;
+    if(!result.hasOwnProperty('activated'))
+      activated = 1;
     console.log(activated);
     date = result.date;
     console.log((new Date()).getTime() - date);
     console.log(thanos_vacation * 60 * 1000);
 
-    if((new Date()).getTime() - date >= (thanos_vacation * 60 * 1000)){
+    if(!result.hasOwnProperty('date') || (new Date()).getTime() - date >= (thanos_vacation * 60 * 1000)){
       activated = 1;
       chrome.storage.local.set({'activated': 1});
     }
@@ -25,7 +35,7 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
       activated = 0;
       chrome.storage.local.set({'activated': 0});
     }
-  
+
     console.log(result);
 
     if(activated == 0){
@@ -33,8 +43,7 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
       document.getElementById("background").style.backgroundRepeat = "no-repeat";
     }
     else{
-      var commandNum = 5 * thanos_power + getRandomIntInclusive(-2, 2);
-      var inputs = ['up', 'down', 'left', 'right', 'space'];
+      var commandNum = 5 * thanos_power + getRandomIntInclusive(-1, 1);
       var pos = 0;
 
       var timeleft = 100; // 10 sec
@@ -54,11 +63,7 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
       for(var i = 0; i < commandNum; ++i)
         commands[i] = getRandomIntInclusive(0, inputs.length - 1);
 
-      var outputString = inputs[commands[0]];
-      for(var i = 1; i < commandNum; ++i)
-        outputString += " " + inputs[commands[i]];
-
-      document.getElementById("cmd").innerHTML = outputString;
+      printCommands(commands);
 
       document.addEventListener('keyup', (e) => {
         if(pos == commandNum)
@@ -99,6 +104,29 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
       });
     }
 });
+
+function printCommands(commands){
+  var cmdString = "";
+  cmdString += `
+    <main class="grid">
+  `;
+  for(var i = 0; i < commands.length; ++i){
+    if(commands[i] != 4)
+      cmdString += `
+        <img src="../media/1_command_arrow.png" alt="">
+        `;
+    else
+      cmdString += `
+        <img src="../media/1_command_space.png" alt="">
+        `;
+  }
+  cmdString +=`
+    </main>
+  `;
+
+  console.log(cmdString);
+  document.getElementById("cmd").innerHTML = cmdString;
+}
 
 function snapTabs(){
   chrome.tabs.query({}, function (tabs) {

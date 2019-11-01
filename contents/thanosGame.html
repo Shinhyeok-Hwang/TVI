@@ -10,16 +10,22 @@
 <body id = "background">
     <div id = iron_man></div>
     <div id = "thanos"></div>
+
     <div id = "command">
-        <h1 id = "cmd">
-          asas
-        </h1>
+        <div id = "cmd">
+            <p align = "center">command</p>
+        </div>
+        <script src="thanosGame.js"></script>
     </div>
+
+    <div id = "timer" align = "center">
+        <progress value="0" max="100" id="progressBar"></progress>
+    </div>
+
     <div id = "message_bar" align = "center">
         <p id = "message_eng">Enter the command within the time limit</p>
         <p id = "message_kor">제한 시간 내에 커맨드를 입력하세요</p>
     </div>
-    <progress value="0" max="100" id="progressBar"></progress>
 </body>
-<script src="thanosGame.js"></script>
+
 </html>

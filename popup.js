@@ -1,7 +1,5 @@
-chrome.storage.local.get(['initialized'], function(result) {
-
-    if(result.initialized == undefined){
-        chrome.storage.local.set({'initialized': 1});
+chrome.storage.local.get(['date'], function(result) {
+    if(result.date == undefined){
         chrome.storage.local.set({'date': 0});
         chrome.storage.local.set({'activated': 1});
         chrome.storage.local.set({'thanos_power': 3});
@@ -32,9 +30,11 @@ chrome.storage.local.get(['initialized'], function(result) {
     var checkbox = document.getElementById("onoffbutton");
     checkbox.addEventListener( 'change', function() {
         if(this.checked) {
-            chrome.storage.local.set({'activated': 1});        
+            chrome.storage.local.set({'activated': 1});
+            chrome.storage.local.set({'date': 0});        
         } else {
-            chrome.storage.local.set({'activated': 0});       
+            chrome.storage.local.set({'activated': 0});   
+            chrome.storage.local.set({'date': (new Date()).getTime()});       
         }
     });
 
