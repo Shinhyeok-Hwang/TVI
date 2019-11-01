@@ -33,6 +33,7 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
     }
     else{
       activated = 0;
+      chrome.storage.local.set({'activated': 0});
     }
 
     console.log(result);
