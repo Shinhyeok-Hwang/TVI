@@ -10,6 +10,9 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
     thanos_power = result.thanos_power;
     thanos_vacation = result.thanos_vacation;
     ironman_love = result.ironman_love;
+    thanos_power *= 1;
+    thanos_vacation *= 1;
+    ironman_love *= 1;
     activated = result.activated;
     if(!result.hasOwnProperty('thanos_power'))
       thanos_power = 3;
