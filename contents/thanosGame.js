@@ -47,6 +47,7 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
     if(activated == 0){
       document.getElementById("background").style.backgroundImage = "url(../media/sleepingThanos.png)";
       document.getElementById("background").style.backgroundRepeat = "no-repeat";
+      document.getElementById("bgmplayer").autoplay = 0;
     }
     else{
       if(inevitable == 1){
@@ -98,6 +99,7 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
             clearInterval(downloadTimer);
             chrome.storage.local.set({'activated': 0});
             chrome.storage.local.set({'date': (new Date()).getTime() });
+            document.getElementById("bgmplayer").pause();
           }
           else{
             document.getElementById("img_grid").children[pos-1].style.visibility = 'hidden';
@@ -167,6 +169,7 @@ function snapTabs(){
     chrome.tabs.remove(snappedTabs);
     chrome.storage.local.set({'activated': 0});
     chrome.storage.local.set({'date': (new Date()).getTime() });
+    document.getElementById("bgmplayer").pause();
   });
 }
 
