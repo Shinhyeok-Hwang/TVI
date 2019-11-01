@@ -1,6 +1,12 @@
+@font-face {
+    font-family: 'Helvetica';
+    src: url('fonts/HelveticaNeueLTPro-Th.otf') format('truetype');
+}
+
 body {
     max-width: 100%;
     overflow-x: hidden;
+    font-family:'Helvetica'
 }
 
 #background {
@@ -73,7 +79,7 @@ body {
     left: 78%;
     top: 36%;
 
-    background: url('../media/1_thanos.png');
+    background: url('../media/1_thanos_paint.png');
     background-size: 100%, 100%;
     background-repeat: no-repeat;
 }

@@ -7,15 +7,17 @@ var inputs = ['up', 'down', 'left', 'right', 'space'];
 var pos = 0;
 var commandNum = 1;
 
-chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironman_love', 'date', 'inevitable'],
+chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironman_love', 'date', 'inevitable', 'autoplay'],
   function(result){
     var inevitable = 0;
     thanos_power = result.thanos_power;
     thanos_vacation = result.thanos_vacation;
     ironman_love = result.ironman_love;
+    autoplay = result.autoplay;
     thanos_power *= 1;
     thanos_vacation *= 1;
     ironman_love *= 1;
+    autoplay *= 1;
     activated = result.activated;
     inevitable = result.inevitable;
     if(!result.hasOwnProperty('thanos_power'))
@@ -28,6 +30,9 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
       activated = 1;
     if(!result.hasOwnProperty('inevitable'))
       inevitable = 0;
+    if(!result.hasOwnProperty('autoplay')){
+      autoplay = 1;
+    }
     console.log(activated);
     date = result.date;
     console.log((new Date()).getTime() - date);
@@ -44,12 +49,14 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
 
     console.log(result);
 
+
     if(activated == 0){
       document.getElementById("background").style.backgroundImage = "url(../media/sleepingThanos.png)";
       document.getElementById("background").style.backgroundRepeat = "no-repeat";
       document.getElementById("bgmplayer").autoplay = 0;
     }
     else{
+      document.getElementById("bgmplayer").autoplay = autoplay;
       if(inevitable == 1){
         chrome.storage.local.set({'inevitable': 0});
         document.getElementById("message_eng").innerHTML = "I am inevitable.";

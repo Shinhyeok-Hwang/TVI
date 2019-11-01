@@ -1,6 +1,7 @@
 chrome.storage.local.get(['date'], function(result) {
     if(result.date == undefined){
         chrome.storage.local.set({'date': 0});
+        chrome.storage.local.set({'autoplay': 1});
         chrome.storage.local.set({'activated': 1});
         chrome.storage.local.set({'thanos_power': 3});
         chrome.storage.local.set({'thanos_vacation':30});
@@ -12,6 +13,14 @@ chrome.storage.local.get(['date'], function(result) {
         }
         else {
             document.getElementById("onoffbutton").checked = false;
+        }
+    });
+    chrome.storage.local.get(['autoplay'], function(result){
+        if(result.autoplay == 1){
+            document.getElementById("mutebutton").checked = false;
+        }
+        else {
+            document.getElementById("mutebutton").checked = true;
         }
     });
     chrome.storage.local.get(['thanos_power'], function(result){
@@ -27,14 +36,23 @@ chrome.storage.local.get(['date'], function(result) {
         document.getElementById("ironman_love").innerHTML = result.ironman_love;
     });
 
-    var checkbox = document.getElementById("onoffbutton");
-    checkbox.addEventListener( 'change', function() {
+    var onoffcheckbox = document.getElementById("onoffbutton");
+    onoffcheckbox.addEventListener( 'change', function() {
         if(this.checked) {
             chrome.storage.local.set({'activated': 1});
             chrome.storage.local.set({'date': 0});        
         } else {
             chrome.storage.local.set({'activated': 0});   
             chrome.storage.local.set({'date': (new Date()).getTime()});       
+        }
+    });
+
+    var mutecheckbox = document.getElementById("mutebutton");
+    mutecheckbox.addEventListener( 'change', function() {
+        if(this.checked) {
+            chrome.storage.local.set({'autoplay': 0}); 
+        } else {
+            chrome.storage.local.set({'autoplay': 1});    
         }
     });
 
@@ -67,20 +85,5 @@ chrome.storage.local.get(['date'], function(result) {
         chrome.storage.local.set({'ironman_love': this.value});
     }    
 });
-
-
-// var button = document.getElementById("confirm_button");
-// button.addEventListener("click",function () {
-//     if(document.getElementById("onoffbutton").checked){
-//         activated = 1;
-//     } else {
-//         activated = 0;
-//     }
-//     chrome.storage.local.set({'activated': activated});
-//     chrome.storage.local.set({'thanos_power': thanos_power});
-//     chrome.storage.local.set({'thanos_vacation': thanos_vacation});
-//     chrome.storage.local.set({'ironman_love': ironman_love});
-// })
-
 
 
