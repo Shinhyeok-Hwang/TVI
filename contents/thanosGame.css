@@ -21,20 +21,26 @@ body {
     top: 103px;
     margin-left: auto;
     margin-right: auto;
-    opacity: 0.5;
 
-    background: #A29F9F;
+    background: rgba(159, 159, 159, 0.5);
     border-radius: 95px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-#cmd {
-    position: relative;
-    font-size: 21pt;
-    align: center;
-}
+.grid {
+    display: grid;
+    grid-template-columns: repeat(10, minmax(15px, 1fr));
+    grid-gap: 15px;
+    align-items: stretch;
+    }
+  .grid img {
+    width: 22px;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 6px 0px  rgba(0,0,0,0.3);
+    max-width: 100%;
+  }
 
 #progressBar {
     position: relative;
