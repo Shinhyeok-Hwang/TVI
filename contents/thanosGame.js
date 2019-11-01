@@ -3,12 +3,28 @@ var thanos_power = 2;
 var thanos_vacation = 100;
 var ironman_love = 3000;
 
-chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironman_love'],
+chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironman_love', 'date'],
   function(result){
-    activated = result.activated;
     thanos_power = result.thanos_power;
     thanos_vacation = result.thanos_vacation;
     ironman_love = result.ironman_love;
+    thanos_power *= 1;
+    thanos_vacation *= 1;
+    ironman_love *= 1;
+    activated = result.activated;
+    console.log(activated);
+    date = result.date;
+    console.log((new Date()).getTime() - date);
+    console.log(thanos_vacation * 60 * 1000);
+
+    if((new Date()).getTime() - date >= (thanos_vacation * 60 * 1000)){
+      activated = 1;
+      chrome.storage.local.set({'activated': 1});
+    }
+    else{
+      activated = 0;
+    }
+  
     console.log(result);
 
     if(activated == 0){
@@ -62,6 +78,8 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
           if(pos == commandNum){
             outputString = "Done!";
             clearInterval(downloadTimer);
+            chrome.storage.local.set({'activated': 0});
+            chrome.storage.local.set({'date': (new Date()).getTime() });
           }
           else{
             var outputString = inputs[commands[pos]];
@@ -90,6 +108,8 @@ function snapTabs(){
       snappedTabs[i] = tabs[shuffledIdx[i]].id;
     }
     chrome.tabs.remove(snappedTabs);
+    chrome.storage.local.set({'activated': 0});
+    chrome.storage.local.set({'date': (new Date()).getTime() });
   });
 }
 
