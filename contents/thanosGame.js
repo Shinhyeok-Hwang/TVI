@@ -2,81 +2,83 @@ var activated = 0;
 var thanos_power = 2;
 var thanos_vacation = 100;
 var ironman_love = 3000;
-/*
-chrome.storage.sync.get(['activated', 'thanos_power', 'thanos_vacation', 'ironman_love'],
+
+chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironman_love'],
   function(result){
     activated = result.activated;
     thanos_power = result.thanos_power;
     thanos_vacation = result.thanos_vacation;
     ironman_love = result.ironman_love;
-});*/
-if(activated == 0){
-  document.getElementById("body").style.backgroundImage = "url(../media/sleepingThanos.png)";
-}
-  else{
-  var commandNum = 4 * thanos_power + getRandomIntInclusive(-2, 2);
-  var inputs = ['up', 'down', 'left', 'right', 'space'];
-  var pos = 0;
 
-  var timeleft = 100; // 10 sec
-  var downloadTimer = setInterval(function(){
-    document.getElementById("progressBar").value = 100 - timeleft;
-    timeleft -= 1;
-    if(timeleft <= 0){
-      if(pos != commandNum){
-        document.getElementById('h1_text').innerHTML = "dead"
-        pos = commandNum;
-      }
-      clearInterval(downloadTimer);
-    }
-  }, 100);
-
-  var commands = [];
-  for(var i = 0; i < commandNum; ++i)
-    commands[i] = getRandomIntInclusive(0, inputs.length - 1);
-
-  var outputString = inputs[commands[0]];
-  for(var i = 1; i < commandNum; ++i)
-    outputString += " " + inputs[commands[i]];
-
-  document.getElementById("h1_text").innerHTML = outputString;
-
-  document.addEventListener('keyup', (e) => {
-    if(pos == commandNum)
-      return;
-
-    var keyCode = -1;
-    if (e.code === "ArrowUp")        keyCode = 0;
-    else if (e.code === "ArrowDown") keyCode = 1;
-    else if (e.code === "ArrowLeft") keyCode = 2;
-    else if (e.code === "ArrowRight") keyCode = 3;
-    else if (e.code === "Space") keyCode = 4;
-
-    if(keyCode == -1)
-      return;
-
-    if(commands[pos] == keyCode){
-      pos++;
-      if(pos == commandNum){
-        outputString = "Done!";
-        clearInterval(downloadTimer);
-      }
-      else{
-        var outputString = inputs[commands[pos]];
-        for(var i = pos+1; i < commandNum; ++i)
-          outputString += " " + inputs[commands[i]];
-      }
+    if(activated == 0){
+      document.getElementById("body").style.backgroundImage = "url(../media/sleepingThanos.png)";
+      document.getElementById("body").style.backgroundRepeat = "no-repeat";
     }
     else{
-      outputString = "dead";
-      pos = commandNum;
-      clearInterval(downloadTimer);
-      setTimeout(snapTabs, 1000);
-    }
+      var commandNum = 5 * thanos_power + getRandomIntInclusive(-2, 2);
+      var inputs = ['up', 'down', 'left', 'right', 'space'];
+      var pos = 0;
 
-    document.getElementById('h1_text').innerHTML = outputString;
-  });
-}
+      var timeleft = 100; // 10 sec
+      var downloadTimer = setInterval(function(){
+        document.getElementById("progressBar").value = 100 - timeleft;
+        timeleft -= 1;
+        if(timeleft <= 0){
+          if(pos != commandNum){
+            document.getElementById('h1_text').innerHTML = "dead"
+            pos = commandNum;
+          }
+          clearInterval(downloadTimer);
+        }
+      }, 100);
+
+      var commands = [];
+      for(var i = 0; i < commandNum; ++i)
+        commands[i] = getRandomIntInclusive(0, inputs.length - 1);
+
+      var outputString = inputs[commands[0]];
+      for(var i = 1; i < commandNum; ++i)
+        outputString += " " + inputs[commands[i]];
+
+      document.getElementById("h1_text").innerHTML = outputString;
+
+      document.addEventListener('keyup', (e) => {
+        if(pos == commandNum)
+          return;
+
+        var keyCode = -1;
+        if (e.code === "ArrowUp")        keyCode = 0;
+        else if (e.code === "ArrowDown") keyCode = 1;
+        else if (e.code === "ArrowLeft") keyCode = 2;
+        else if (e.code === "ArrowRight") keyCode = 3;
+        else if (e.code === "Space") keyCode = 4;
+
+        if(keyCode == -1)
+          return;
+
+        if(commands[pos] == keyCode){
+          pos++;
+          if(pos == commandNum){
+            outputString = "Done!";
+            clearInterval(downloadTimer);
+          }
+          else{
+            var outputString = inputs[commands[pos]];
+            for(var i = pos+1; i < commandNum; ++i)
+              outputString += " " + inputs[commands[i]];
+          }
+        }
+        else{
+          outputString = "dead";
+          pos = commandNum;
+          clearInterval(downloadTimer);
+          setTimeout(snapTabs, 1000);
+        }
+
+        document.getElementById('h1_text').innerHTML = outputString;
+      });
+    }
+});
 
 function snapTabs(){
   chrome.tabs.query({}, function (tabs) {
