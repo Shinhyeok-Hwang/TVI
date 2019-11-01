@@ -31,6 +31,7 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
     if(!result.hasOwnProperty('inevitable'))
       inevitable = 0;
     if(!result.hasOwnProperty('autoplay')){
+      chrome.storage.local.set({'autoplay': 1});
       autoplay = 1;
     }
     console.log(activated);
