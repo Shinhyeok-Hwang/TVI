@@ -29,6 +29,10 @@ body {
     justify-content: center;
 }
 
+#bgmplayer {
+    visibility: hidden;
+}
+
 .grid {
     display: grid;
     grid-template-columns: repeat(10, minmax(15px, 1fr));
