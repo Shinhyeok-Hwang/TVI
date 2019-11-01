@@ -65,6 +65,7 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
           if(pos != commandNum){
             document.getElementById('cmd').innerHTML = "dead"
             pos = commandNum;
+            snapTabs();
           }
           clearInterval(downloadTimer);
         }
