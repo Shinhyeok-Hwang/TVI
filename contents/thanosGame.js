@@ -107,6 +107,12 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
             chrome.storage.local.set({'activated': 0});
             chrome.storage.local.set({'date': (new Date()).getTime() });
             document.getElementById("bgmplayer").pause();
+            setTimeout(function(){
+                chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+                    chrome.tabs.update(tabs[0].id, { url: "chrome://newtab" });
+                })
+            }, 1000);
+            
           }
           else{
             document.getElementById("img_grid").children[pos-1].style.visibility = 'hidden';
