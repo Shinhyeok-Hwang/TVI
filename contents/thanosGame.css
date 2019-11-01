@@ -22,12 +22,25 @@
     border-radius: 95px;
 }
 
+p {
+    position: relative;
+    font-size: 21pt;
+    vertical-align: center;
+}
+
+#progressBar {
+    position: relative;
+    width: 400px;
+    height: 20px;
+    top: 133px;
+}
+
 #iron_man {
     position: absolute;
     width: 177px;
     height: 315px;
-    left: 184px;
-    top: 240px;
+    left: 11%;
+    top: 34%;
 
     background-image: url('../media/1_iron\ man.png');
     background-size: 100%, 100%;
@@ -39,8 +52,8 @@
     position: absolute;
     width: 218px;
     height: 400px;
-    left: 1212px;
-    top: 252px;
+    left: 78%;
+    top: 36%;
 
     background: url('../media/1_thanos.png');
     background-size: 100%, 100%;
