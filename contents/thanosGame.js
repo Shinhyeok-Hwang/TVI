@@ -9,6 +9,7 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
     thanos_power = result.thanos_power;
     thanos_vacation = result.thanos_vacation;
     ironman_love = result.ironman_love;
+    console.log(result);
 
     if(activated == 0){
       document.getElementById("background").style.backgroundImage = "url(../media/sleepingThanos.png)";
@@ -25,7 +26,7 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
         timeleft -= 1;
         if(timeleft <= 0){
           if(pos != commandNum){
-            document.getElementById('h1_text').innerHTML = "dead"
+            document.getElementById('cmd').innerHTML = "dead"
             pos = commandNum;
           }
           clearInterval(downloadTimer);
@@ -40,7 +41,7 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
       for(var i = 1; i < commandNum; ++i)
         outputString += " " + inputs[commands[i]];
 
-      document.getElementById("h1_text").innerHTML = outputString;
+      document.getElementById("cmd").innerHTML = outputString;
 
       document.addEventListener('keyup', (e) => {
         if(pos == commandNum)
@@ -75,7 +76,7 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
           setTimeout(snapTabs, 1000);
         }
 
-        document.getElementById('h1_text').innerHTML = outputString;
+        document.getElementById('cmd').innerHTML = outputString;
       });
     }
 });
