@@ -27,7 +27,7 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
     console.log((new Date()).getTime() - date);
     console.log(thanos_vacation * 60 * 1000);
 
-    if((new Date()).getTime() - date >= (thanos_vacation * 60 * 1000)){
+    if(!result.hasOwnProperty('date') || (new Date()).getTime() - date >= (thanos_vacation * 60 * 1000)){
       activated = 1;
       chrome.storage.local.set({'activated': 1});
     }
