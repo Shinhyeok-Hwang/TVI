@@ -47,6 +47,7 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
     if(activated == 0){
       document.getElementById("background").style.backgroundImage = "url(../media/sleepingThanos.png)";
       document.getElementById("background").style.backgroundRepeat = "no-repeat";
+      document.getElementById("bgmplayer").autoplay = 0;
     }
     else{
       if(inevitable == 1){
