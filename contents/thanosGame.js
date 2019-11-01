@@ -99,9 +99,21 @@ function printCommands(commands){
     <main class="grid">
   `;
   for(var i = 0; i < commands.length; ++i){
-    if(commands[i] != 4)
+    if(commands[i] == 0)
+      cmdString += `
+        <img src="../media/1_command_arrow.png" alt="" style="transform:rotate(180deg) ">
+        `;
+    else if(commands[i] == 1)
       cmdString += `
         <img src="../media/1_command_arrow.png" alt="">
+        `;
+    else if(commands[i] == 2)
+        cmdString += `
+          <img src="../media/1_command_arrow.png" alt="" style="transform:rotate(90deg) ">
+          `;
+    else if(commands[i] == 3)
+        cmdString += `
+        <img src="../media/1_command_arrow.png" alt="" style="transform:rotate(270deg) ">
         `;
     else
       cmdString += `
