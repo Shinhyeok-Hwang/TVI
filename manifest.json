@@ -1,0 +1,12 @@
+{
+    "name": "TVI",
+    "version": "1.0",
+    "manifest_version": 2,
+    "browser_action": {
+        "default_popup": "popup.html",
+        "default_title": "TVI_TITLE"
+    },
+    "chrome_url_overrides" : {
+        "newtab": "contents/thanosGame.html"
+    }
+}
