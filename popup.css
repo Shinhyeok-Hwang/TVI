@@ -1,3 +1,12 @@
+@font-face {
+    font-family: 'Helvetica';
+    src: url('fonts/HelveticaNeueLTPro-Th.otf') format('truetype');
+}
+
+body {
+    font-family:'Helvetica'
+}
+
 .slidecontainer {
     width: 100%;
 }
@@ -5,7 +14,7 @@
 .slider {
     -webkit-appearance: none;
     width: 100%;
-    height: 8px;
+    height: 6px;
     border-radius: 5px;
     background: #d3d3d3;
     outline: none;
@@ -21,18 +30,18 @@
 .slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 15px;
-    height: 15px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
-    background:  rgb(0,231,97);
+    background:  rgb(120,120,120);
     cursor: pointer;
 }
 
 .slider::-moz-range-thumb {
-    width: 15px;
-    height: 15px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
-    background:  rgb(0,231,97);
+    background:  rgb(120,120,120);
     cursor: pointer;
 }
 
