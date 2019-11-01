@@ -1,7 +1,6 @@
 chrome.storage.local.get(['initialized'], function(result) {
 
     if(result.initialized == undefined){
-        console.log("ASEAEDADS");
         chrome.storage.local.set({'initialized': 1});
         chrome.storage.local.set({'date': 0});
         chrome.storage.local.set({'activated': 1});
