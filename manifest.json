@@ -8,8 +8,8 @@
         "default_popup": "popup.html",
         "default_title": "TVI"
     },
-    "chrome_url_overrides" : {
-        "newtab": "contents/thanosGame.html"
+    "background": {
+        "scripts": ["contents/background.js"]
     },
     "permissions": [
         "storage",
