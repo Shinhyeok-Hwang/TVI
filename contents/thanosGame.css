@@ -1,6 +1,12 @@
+@font-face {
+    font-family: 'Helvetica';
+    src: url('fonts/HelveticaNeueLTPro-Th.otf') format('truetype');
+}
+
 body {
     max-width: 100%;
     overflow-x: hidden;
+    font-family:'Helvetica'
 }
 
 #background {
