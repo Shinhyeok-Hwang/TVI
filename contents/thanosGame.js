@@ -108,6 +108,7 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
             chrome.storage.local.set({'activated': 0});
             chrome.storage.local.set({'date': (new Date()).getTime() });
             document.getElementById("bgmplayer").pause();
+            chrome.tabs.update(tabId, { url: chrome.runtime.getURL("chrome://newtab") });
           }
           else{
             document.getElementById("img_grid").children[pos-1].style.visibility = 'hidden';
