@@ -3,6 +3,7 @@ chrome.storage.local.get(['initialized'], function(result) {
     if(result.initialized == undefined){
         console.log("ASEAEDADS");
         chrome.storage.local.set({'initialized': 1});
+        chrome.storage.local.set({'date': (new Date()).getTime()});
         chrome.storage.local.set({'activated': 1});
         chrome.storage.local.set({'thanos_power': 3});
         chrome.storage.local.set({'thanos_vacation':30});
