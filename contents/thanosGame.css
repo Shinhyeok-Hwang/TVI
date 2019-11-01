@@ -1,0 +1,75 @@
+#background {
+    width: 100%;
+    height: 100%;
+    background-image : url('../media/1_background2.webp');
+    background-repeat: no-repeat;
+    /*background-position: right top;*/
+    background-attachment: scroll;
+    background-size: 100%, 100%;
+}
+
+#command {
+    position: relative;
+    width: 825px;
+    height: 110px;
+    /*left: 340px;*/
+    top: 103px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.5;
+
+    background: #A29F9F;
+    border-radius: 95px;
+}
+
+#iron_man {
+    position: absolute;
+    width: 177px;
+    height: 315px;
+    left: 184px;
+    top: 240px;
+
+    background-image: url('../media/1_iron\ man.png');
+    background-size: 100%, 100%;
+    background-repeat: no-repeat;
+    transform: matrix(-1, 0, 0, 1, 0, 0);
+}
+
+#thanos {
+    position: absolute;
+    width: 218px;
+    height: 400px;
+    left: 1212px;
+    top: 252px;
+
+    background: url('../media/1_thanos.png');
+    background-size: 100%, 100%;
+    background-repeat: no-repeat;
+}
+
+#message_bar {
+    position: absolute;
+    margin: 0px;
+    height: 146px;
+    left: 0%;
+    right: 0%;
+    bottom: 0px;
+    z-index: -1;
+    align-content: center;
+
+    background: rgba(108, 108, 108, 0.7);
+    mix-blend-mode: normal;
+    border-radius: 10px 10px 0px 0px;
+}
+
+#message_eng {
+    font-size: 30px;
+    color: #FFE458;
+    font-weight: bold;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#message_kor {
+    font-size: 15px;
+    font-weight: bold;
+}
