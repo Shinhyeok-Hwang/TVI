@@ -4,9 +4,12 @@ var thanos_vacation = 100;
 var ironman_love = 3000;
 
 var inputs = ['up', 'down', 'left', 'right', 'space'];
+var pos = 0;
+var commandNum = 1;
 
-chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironman_love', 'date'],
+chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironman_love', 'date', 'inevitable'],
   function(result){
+    var inevitable = 0;
     thanos_power = result.thanos_power;
     thanos_vacation = result.thanos_vacation;
     ironman_love = result.ironman_love;
@@ -14,6 +17,7 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
     thanos_vacation *= 1;
     ironman_love *= 1;
     activated = result.activated;
+    inevitable = result.inevitable;
     if(!result.hasOwnProperty('thanos_power'))
       thanos_power = 3;
     if(!result.hasOwnProperty('thanos_vacation'))
@@ -22,6 +26,8 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
       ironman_love = 3;
     if(!result.hasOwnProperty('activated'))
       activated = 1;
+    if(!result.hasOwnProperty('inevitable'))
+      inevitable = 0;
     console.log(activated);
     date = result.date;
     console.log((new Date()).getTime() - date);
@@ -43,8 +49,13 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
       document.getElementById("background").style.backgroundRepeat = "no-repeat";
     }
     else{
-      var commandNum = 5 * thanos_power + getRandomIntInclusive(-1, 1);
-      var pos = 0;
+      if(inevitable == 1){
+        chrome.storage.local.set({'inevitable': 0});
+        document.getElementById("message_eng").innerHTML = "I am inevitable.";
+        document.getElementById("message_kor").innerHTML = "나는 필연적이다.";
+      }
+
+      commandNum = 5 * thanos_power + getRandomIntInclusive(-1, 1);
 
       var timeleft = 100; // 10 sec
       var downloadTimer = setInterval(function(){
@@ -111,9 +122,21 @@ function printCommands(commands){
     <main class="grid">
   `;
   for(var i = 0; i < commands.length; ++i){
-    if(commands[i] != 4)
+    if(commands[i] == 0)
+      cmdString += `
+        <img src="../media/1_command_arrow.png" alt="" style="transform:rotate(180deg) ">
+        `;
+    else if(commands[i] == 1)
       cmdString += `
         <img src="../media/1_command_arrow.png" alt="">
+        `;
+    else if(commands[i] == 2)
+        cmdString += `
+          <img src="../media/1_command_arrow.png" alt="" style="transform:rotate(90deg) ">
+          `;
+    else if(commands[i] == 3)
+        cmdString += `
+        <img src="../media/1_command_arrow.png" alt="" style="transform:rotate(270deg) ">
         `;
     else
       cmdString += `
@@ -127,6 +150,13 @@ function printCommands(commands){
   console.log(cmdString);
   document.getElementById("cmd").innerHTML = cmdString;
 }
+
+window.addEventListener("beforeunload", function(event) {
+  if(activated == 1 && pos != commandNum){
+    chrome.storage.local.set({'inevitable': 1});
+    chrome.tabs.create({});
+  }
+});
 
 function snapTabs(){
   chrome.tabs.query({}, function (tabs) {
