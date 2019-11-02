@@ -96,6 +96,7 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
 			document.getElementById('message_eng').innerHTML = "I will destroy half of your tabs.."
 			document.getElementById('message_kor').innerHTML = "탭의 절반이 사라집니다."
 			document.getElementById("background").style.backgroundImage = "url('../media/bg2.png')";
+			document.getElementById('message_eng').style.fontWeight = "1000";
 			document.getElementById('command').style.visibility = 'hidden';
 			document.getElementById('timer').style.visibility = 'hidden';
 			document.getElementById('iron_man').style.visibility = 'hidden';
