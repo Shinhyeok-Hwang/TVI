@@ -116,8 +116,8 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
         if(pos == commandNum)
           return;
         
-        //document.getElementById("iron_man").style.backgroundImage = "url('../media/1_iron\ man.png')";
-        
+        document.getElementById("iron_man").style.transform = 'rotate(' + getRandomIntInclusive(-60,60) +'deg)';
+
         var keyCode = -1;
         if (e.code === "ArrowUp")        keyCode = 0;
         else if (e.code === "ArrowDown") keyCode = 1;
@@ -177,44 +177,7 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
                 })
 			}, 6520);
         }
-
         //document.getElementById('cmd').innerHTML = outputString;
-      });
-      document.addEventListener('keydown', (e) => {
-        if(pos == commandNum){
-          return;
-        }
-        var keyCode = -1;
-        var keyCode = -1;
-        if (e.code === "ArrowUp")        keyCode = 0;
-        else if (e.code === "ArrowDown") keyCode = 1;
-        else if (e.code === "ArrowLeft") keyCode = 2;
-        else if (e.code === "ArrowRight") keyCode = 3;
-        else if (e.code === "Space") keyCode = 4;
-
-        if(keyCode == -1)
-          return;
-
-        switch(keyCode){
-          case 0:
-            document.getElementById("iron_man").style.backgroundImage = "url('../media/up.png')";
-            break;
-          case 1:
-            document.getElementById("iron_man").style.backgroundImage = "url('../media/down.png')";
-            break;
-          case 2:
-            document.getElementById("iron_man").style.backgroundImage = "url('../media/left.png')";
-            break;
-          case 3:
-            document.getElementById("iron_man").style.backgroundImage = "url('../media/right.png')";
-            break;
-          case 4:
-            document.getElementById("iron_man").style.backgroundImage = "url('../media/space.png')";
-            break;
-          default:
-            console.log("error");
-            break;
-        }
       });
     }
 });
