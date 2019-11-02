@@ -4,9 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="thanosGame.css">
+    <title>THABNOS</title>
 </head>
-<body>
-    <h1>thanos!!</h1>
+<body id = "background">
+    <audio id = "bgmplayer" controls autoplay>
+        <source src="../media/bgm.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <audio id = "audio_play" src = "../media/hit3.mp3"></audio>
+    <div id = iron_man></div>
+    <div id = "thanos"></div>
+
+    <div id = "command">
+        <div id = "cmd">
+            <p align = "center">command</p>
+        </div>
+        <script src="thanosGame.js"></script>
+    </div>
+
+    <div id = "timer" align = "center">
+        <progress value="0" max="100" id="progressBar"></progress>
+    </div>
+
+    <div id = "message_bar" align = "center">
+        <p id = "message_eng">Enter the command within the time limit to defeat THABNOS!!</p>
+        <p id = "message_kor">시간안에 커맨드를 입력해서 탭노스를 물리치세요!</p>
+    </div>
 </body>
+
 </html>

@@ -1,13 +1,20 @@
 {
-    "name": "TVI",
+    "name": "THABNOS",
     "version": "1.0",
+    "icons": { "16": "media/icon16.png",
+           "48": "media/icon48.png",
+          "128": "media/icon128.png" },
     "manifest_version": 2,
     "browser_action": {
         "default_icon": "media/thanos.png",
         "default_popup": "popup.html",
-        "default_title": "TVI_TITLE"
+        "default_title": "TVI"
     },
-    "chrome_url_overrides" : {
-        "newtab": "contents/thanosGame.html"
-    }
+    "background": {
+        "scripts": ["contents/background.js"]
+    },
+    "permissions": [
+        "storage",
+        "tabs"
+    ]
 }

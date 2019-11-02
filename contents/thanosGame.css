@@ -1,0 +1,110 @@
+@font-face {
+    font-family: 'Helvetica';
+    src: url('../fonts/HelveticaNeueLTPro-Th.otf') format('truetype');
+}
+
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+    font-family:'Helvetica'
+}
+
+#background {
+    max-width: 100%;
+    max-height: 100%;
+    background-image : url('../media/bg.jpg');
+    background-repeat: no-repeat;
+    /*background-position: right top;*/
+    background-attachment: scroll;
+    background-size: 100%, 100%;
+    transform: scale(1, 0,7);
+}
+
+#command {
+    position: relative;
+    width: 825px;
+    height: wrap_content;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    /*left: 340px;*/
+    top: 103px;
+    margin-left: auto;
+    margin-right: auto;
+
+    background: rgba(90, 90, 90, 0.7);
+    border-radius: 95px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#bgmplayer {
+    visibility: hidden;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(10, minmax(15px, 1fr));
+    grid-gap: 15px;
+    align-items: stretch;
+    }
+  .grid img {
+    width: 22px;
+    max-width: 100%;
+  }
+
+#progressBar {
+    position: relative;
+    width: 400px;
+    height: 20px;
+    top: 133px;
+}
+
+#iron_man {
+    position: absolute;
+    width: 207px;
+    height: 330px;
+    left: 11%;
+    top: 35%;
+
+    background-image: url('../media/iron_man.png');
+    background-size: 100%, 100%;
+    background-repeat: no-repeat;
+    /* transform: matrix(-1, 0, 0, 1, 0, 0); */
+}
+
+#thanos {
+    position: absolute;
+    width: 308px;
+    height: 420px;
+    left: 74%;
+    top: 30%;
+
+    background: url('../media/thanos2.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#message_bar {
+    position: absolute;
+    margin: 0px;
+    height: 146px;
+    left: 0%;
+    right: 0%;
+    bottom: 0px;
+    z-index: 1;
+    align-content: center;
+
+    background: rgba(90, 90, 90, 0.8);
+    mix-blend-mode: normal;
+}
+
+#message_eng {
+    font-size: 30px;
+    color: #FFFFFF;
+}
+
+#message_kor {
+    font-size: 15px;
+    color: #FFFFFF;
+}

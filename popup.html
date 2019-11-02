@@ -4,9 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="popup.css">
+    <title>Angry Thanos</title>
 </head>
-<body>
-    <button>Grrr</button>
+<body id="wholepopup">
+    <div id="popup">
+        <div id="head" align = "center">
+            <h1>THABNOS</h1>
+        </div>
+        <hr>
+        <div id="image" align = "center" >
+            <img src='media/thanos.png' id='hydrateImage' width='160' height='160'>
+        </div>
+        <hr>
+        <div class="popupitem">
+            <div id= "mute_text">
+                <p>Mute</p>
+            </div>
+            <div id= "mute">
+                    <label class="switch">
+                            <input type="checkbox" id="mutebutton">
+                            <span class="button round"></span>
+                    </label>
+            </div>
+        </div>
+        <hr>
+        <div class="popupitem">
+            <div id= "onoff_text">
+                <p>Give him the gauntlet!</p>
+            </div>
+            <div id= "onoff">
+                    <label class="switch">
+                            <input type="checkbox" id="onoffbutton">
+                            <span class="button round"></span>
+                    </label>
+            </div>
+        </div>
+
+        <hr>
+        <div class="popupitem">
+            <div align ="center" class="slidecontainer">
+                    <input type="range" min="1" max="5" class="slider" id="thanos_power_slider">
+                    <p>he has <span id="thanos_power"></span> infinity stones..</p>
+            </div>
+        </div>
+        <hr>
+        <div class="popupitem">
+            <div align ="center" class="slidecontainer">
+                    <input type="range" min="1" max="60" class="slider" id="thanos_vacation_slider">
+                    <p>he will come back in <span id="thanos_vacation"></span> minutes...</p>
+            </div>
+        </div>
+        <hr>
+        <div class="popupitem">
+                <div align ="center" class="slidecontainer">
+                        <input type="range" min="1" max="3000" class="slider" id="ironman_love_slider">
+                        <p><span id="ironman_love"></span>..?</p>
+                </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="popup.js"></script>
 </body>
 </html>
