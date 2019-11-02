@@ -75,7 +75,7 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
         document.getElementById("message_kor").innerHTML = "나는 필연적이다.";
       }
 
-      commandNum = 5 * thanos_power + getRandomIntInclusive(-1, 1) + 3 * inevitable;
+      commandNum = Math.pow(2, thanos_power+1) + getRandomIntInclusive(-1, 1) + 3 * inevitable;
 
       var timeleft = 100; // 10 sec
       var downloadTimer = setInterval(function(){
