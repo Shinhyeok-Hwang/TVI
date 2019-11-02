@@ -160,23 +160,27 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
         else{
 			outputString = "dead";
 			pos = commandNum;
+			document.getElementById('thanos').style.backgroundImage = 'url(../media/1_thanos_painting.png)';
 			document.getElementById('cmd').innerHTML = "dead"
-			document.getElementById('background').style.backgroundImage = 'url(../media/thanos_snap.gif)';
-			document.getElementById('iron_man').style.visibility = 'hidden';
-			document.getElementById('thanos').style.visibility = 'hidden';
-			document.getElementById('command').style.visibility = 'hidden';
-			document.getElementById('timer').style.visibility = 'hidden';
-			document.getElementById('message_bar').style.visibility = 'hidden';
+
 			document.getElementById("bgmplayer").pause();
+			setTimeout(function() {
+				document.getElementById('background').style.backgroundImage = 'url(../media/thanos_snap.gif)';
+				document.getElementById('iron_man').style.visibility = 'hidden';
+				document.getElementById('thanos').style.visibility = 'hidden';
+				document.getElementById('command').style.visibility = 'hidden';
+				document.getElementById('timer').style.visibility = 'hidden';
+				document.getElementById('message_bar').style.visibility = 'hidden';	
+			}, 1500);
 
 			clearInterval(downloadTimer);
-			setTimeout(snapTabs, 5000);
+			setTimeout(snapTabs, 6500);
 
 			setTimeout(function(){
                 chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
                     chrome.tabs.update(tabs[0].id, { url: "chrome://newtab" });
                 })
-			}, 5020);
+			}, 6520);
         }
 
         //document.getElementById('cmd').innerHTML = outputString;
