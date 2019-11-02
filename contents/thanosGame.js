@@ -76,30 +76,44 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
       }
 
       commandNum = Math.pow(2, thanos_power+1) + getRandomIntInclusive(-1, 1) + thanos_power * inevitable;
-
+	  if(ironman_love == 3000 && thanos_power == 5){
+		  commandNum = 10;
+	  }
       var timeleft = 100; // 10 sec
       var downloadTimer = setInterval(function(){
         document.getElementById("progressBar").value = 100 - timeleft;
         timeleft -= 1;
         if(timeleft <= 0){
           if(pos != commandNum){
-            document.getElementById('cmd').innerHTML = "dead"
-			document.getElementById('background').style.backgroundImage = 'url(../media/thanos_snap.gif)';
-			document.getElementById('iron_man').style.visibility = 'hidden';
-			document.getElementById('thanos').style.visibility = 'hidden';
+			document.getElementById('thanos').style.backgroundImage = 'url(../media/thanoswin.png)';
+			document.getElementById('thanos').style.left = '40%';
+			document.getElementById('thanos').style.top = '10%';
+			document.getElementById('thanos').style.width = '400px';
+			document.getElementById('thanos').style.height = '500px';
+			document.getElementById("thanos").style.transform = 'rotate(0deg)';
+
+			document.getElementById('message_eng').innerHTML = "I will destroy half of your tabs.."
+			document.getElementById('message_kor').innerHTML = "탭의 절반이 사라집니다."
+			document.getElementById("background").style.backgroundImage = "url('../media/bg2.png')";
 			document.getElementById('command').style.visibility = 'hidden';
 			document.getElementById('timer').style.visibility = 'hidden';
-			document.getElementById('message_bar').style.visibility = 'hidden';
+			document.getElementById('iron_man').style.visibility = 'hidden';
+
 			document.getElementById("bgmplayer").pause();
+			setTimeout(function() {
+				document.getElementById('background').style.backgroundImage = 'url(../media/thanos_snap.gif)';
+				document.getElementById('thanos').style.visibility = 'hidden';
+				document.getElementById('message_bar').style.visibility = 'hidden';	
+			}, 2000);
 
             pos = commandNum;
-			setTimeout(snapTabs, 5000);
+			setTimeout(snapTabs, 7000);
 			
 			setTimeout(function(){
                 chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
                     chrome.tabs.update(tabs[0].id, { url: "chrome://newtab" });
                 })
-			}, 5020);
+			}, 7020);
 			
           }
           clearInterval(downloadTimer);
@@ -116,7 +130,8 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
         if(pos == commandNum)
           return;
         
-        document.getElementById("iron_man").style.transform = 'rotate(' + getRandomIntInclusive(-60,60) +'deg)';
+		document.getElementById("iron_man").style.transform = 'rotate(' + getRandomIntInclusive(-60,60) +'deg)';
+		document.getElementById("thanos").style.transform = 'rotate(' + getRandomIntInclusive(-60,60) +'deg)';
 
         var keyCode = -1;
         if (e.code === "ArrowUp")        keyCode = 0;
@@ -140,7 +155,20 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
             chrome.storage.local.set({'activated': 0});1
             chrome.storage.local.set({'date': (new Date()).getTime() });
             chrome.storage.local.set({'inevitable': 0});
-            document.getElementById("bgmplayer").pause();
+			document.getElementById("bgmplayer").pause();
+
+			document.getElementById('iron_man').style.left = '40%';
+			document.getElementById('iron_man').style.top = '10%';
+			document.getElementById('iron_man').style.width = '330px';
+			document.getElementById('iron_man').style.height = '550px';
+			document.getElementById("iron_man").style.transform = 'rotate(0deg)';
+			
+			document.getElementById('message_eng').innerHTML = "I love you " + ironman_love + "..";
+			document.getElementById('message_kor').innerHTML = "타노스에게서 건틀릿을 빼앗았습니다!"
+			document.getElementById('message_eng').style.fontWeight = "1000";
+			document.getElementById('command').style.visibility = 'hidden';
+			document.getElementById('timer').style.visibility = 'hidden';
+
             setTimeout(function(){
                 chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
                     chrome.tabs.update(tabs[0].id, { url: "chrome://newtab" });
@@ -155,27 +183,37 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
         else{
 			outputString = "dead";
 			pos = commandNum;
-			document.getElementById('thanos').style.backgroundImage = 'url(../media/1_thanos_paint.png)';
-			document.getElementById('cmd').innerHTML = "dead"
+			document.getElementById('thanos').style.backgroundImage = 'url(../media/thanoswin.png)';
+			document.getElementById('thanos').style.left = '40%';
+			document.getElementById('thanos').style.top = '10%';
+			document.getElementById('thanos').style.width = '400px';
+			document.getElementById('thanos').style.height = '500px';
+			document.getElementById("thanos").style.transform = 'rotate(0deg)';
+
+			document.getElementById('message_eng').innerHTML = "I will destroy half of your tabs.."
+			document.getElementById('message_kor').innerHTML = "탭의 절반이 사라집니다."
+			document.getElementById("background").style.backgroundImage = "url('../media/bg2.png')";
+			document.getElementById('message_eng').style.fontWeight = "1000";
+			document.getElementById('command').style.visibility = 'hidden';
+			document.getElementById('timer').style.visibility = 'hidden';
+			document.getElementById('iron_man').style.visibility = 'hidden';
 
 			document.getElementById("bgmplayer").pause();
 			setTimeout(function() {
 				document.getElementById('background').style.backgroundImage = 'url(../media/thanos_snap.gif)';
-				document.getElementById('iron_man').style.visibility = 'hidden';
+
 				document.getElementById('thanos').style.visibility = 'hidden';
-				document.getElementById('command').style.visibility = 'hidden';
-				document.getElementById('timer').style.visibility = 'hidden';
-				document.getElementById('message_bar').style.visibility = 'hidden';	
-			}, 1500);
+				document.getElementById('message_bar').style.visibility = 'hidden';
+			}, 2000);
 
 			clearInterval(downloadTimer);
-			setTimeout(snapTabs, 6500);
+			setTimeout(snapTabs, 7000);
 
 			setTimeout(function(){
                 chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
                     chrome.tabs.update(tabs[0].id, { url: "chrome://newtab" });
                 })
-			}, 6520);
+			}, 7020);
         }
         //document.getElementById('cmd').innerHTML = outputString;
       });
