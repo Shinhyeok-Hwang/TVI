@@ -79,7 +79,14 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
 			document.getElementById("bgmplayer").pause();
 
             pos = commandNum;
-            setTimeout(snapTabs, 5000);
+			setTimeout(snapTabs, 5000);
+			
+			setTimeout(function(){
+                chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+                    chrome.tabs.update(tabs[0].id, { url: "chrome://newtab" });
+                })
+			}, 5020);
+			
           }
           clearInterval(downloadTimer);
         }
@@ -108,7 +115,9 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
         if(commands[pos] == keyCode){
           pos++;
 		  document.getElementById("img_grid").children[pos-1].style.visibility = 'hidden';
-		  play();
+		  if(document.getElementById("bgmplayer").autoplay){
+			  play();
+		  }
           if(pos == commandNum){
             outputString = "Done!";
             clearInterval(downloadTimer);
@@ -138,6 +147,12 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
 
 			clearInterval(downloadTimer);
 			setTimeout(snapTabs, 5000);
+
+			setTimeout(function(){
+                chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+                    chrome.tabs.update(tabs[0].id, { url: "chrome://newtab" });
+                })
+			}, 5020);
         }
 
         //document.getElementById('cmd').innerHTML = outputString;
