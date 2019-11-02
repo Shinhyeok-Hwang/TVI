@@ -129,9 +129,6 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
       document.addEventListener('keyup', (e) => {
         if(pos == commandNum)
           return;
-        
-		document.getElementById("iron_man").style.transform = 'rotate(' + getRandomIntInclusive(-60,60) +'deg)';
-		document.getElementById("thanos").style.transform = 'rotate(' + getRandomIntInclusive(-60,60) +'deg)';
 
         var keyCode = -1;
         if (e.code === "ArrowUp")        keyCode = 0;
@@ -144,8 +141,10 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
           return;
 
         if(commands[pos] == keyCode){
-          pos++;
-		  document.getElementById("img_grid").children[pos-1].style.visibility = 'hidden';
+		  	pos++;
+		  	document.getElementById("iron_man").style.transform = 'rotate(' + getRandomIntInclusive(-60,60) +'deg)';
+			document.getElementById("thanos").style.transform = 'rotate(' + getRandomIntInclusive(-60,60) +'deg)';
+		  	document.getElementById("img_grid").children[pos-1].style.visibility = 'hidden';
 		  if(document.getElementById("bgmplayer").autoplay){
 			  play();
 		  }
