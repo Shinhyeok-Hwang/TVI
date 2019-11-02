@@ -7,6 +7,23 @@ var inevitable = 0;
 var inputs = ['up', 'down', 'left', 'right', 'space'];
 var pos = 0;
 var commandNum = 1;
+var images = [];
+
+function preload() {
+  for (var i = 0; i < arguments.length; i++) {
+      images[i] = new Image();
+      images[i].src = preload.arguments[i];
+  }
+}
+
+preload(
+  "../media/left.png",
+  "../media/right.png",
+  "../media/up.png",
+  "../media/down.png",
+  "../media/space.png",
+  "../media/thanoshit.png",
+)
 
 chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironman_love', 'date', 'inevitable', 'autoplay'],
   function(result){
@@ -31,6 +48,7 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
     if(!result.hasOwnProperty('inevitable'))
       inevitable = 0;
     if(!result.hasOwnProperty('autoplay')){
+      chrome.storage.local.set({'autoplay': 1});
       autoplay = 1;
     }
     console.log(activated);
@@ -101,7 +119,9 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
       document.addEventListener('keyup', (e) => {
         if(pos == commandNum)
           return;
-
+        
+        //document.getElementById("iron_man").style.backgroundImage = "url('../media/1_iron\ man.png')";
+        
         var keyCode = -1;
         if (e.code === "ArrowUp")        keyCode = 0;
         else if (e.code === "ArrowDown") keyCode = 1;
@@ -132,30 +152,74 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
                 })
             }, 1000);
           }
+          else{
+            document.getElementById("img_grid").children[pos-1].style.visibility = 'hidden';
+            document.getElementById("thanos").style.backgroundImage = "url('../media/thanoshit.png')";
+          }
         }
         else{
 			outputString = "dead";
 			pos = commandNum;
+			document.getElementById('thanos').style.backgroundImage = 'url(../media/1_thanos_painting.png)';
 			document.getElementById('cmd').innerHTML = "dead"
-			document.getElementById('background').style.backgroundImage = 'url(../media/thanos_snap.gif)';
-			document.getElementById('iron_man').style.visibility = 'hidden';
-			document.getElementById('thanos').style.visibility = 'hidden';
-			document.getElementById('command').style.visibility = 'hidden';
-			document.getElementById('timer').style.visibility = 'hidden';
-			document.getElementById('message_bar').style.visibility = 'hidden';
+
 			document.getElementById("bgmplayer").pause();
+			setTimeout(function() {
+				document.getElementById('background').style.backgroundImage = 'url(../media/thanos_snap.gif)';
+				document.getElementById('iron_man').style.visibility = 'hidden';
+				document.getElementById('thanos').style.visibility = 'hidden';
+				document.getElementById('command').style.visibility = 'hidden';
+				document.getElementById('timer').style.visibility = 'hidden';
+				document.getElementById('message_bar').style.visibility = 'hidden';	
+			}, 1500);
 
 			clearInterval(downloadTimer);
-			setTimeout(snapTabs, 5000);
+			setTimeout(snapTabs, 6500);
 
 			setTimeout(function(){
                 chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
                     chrome.tabs.update(tabs[0].id, { url: "chrome://newtab" });
                 })
-			}, 5020);
+			}, 6520);
         }
 
         //document.getElementById('cmd').innerHTML = outputString;
+      });
+      document.addEventListener('keydown', (e) => {
+        if(pos == commandNum){
+          return;
+        }
+        var keyCode = -1;
+        var keyCode = -1;
+        if (e.code === "ArrowUp")        keyCode = 0;
+        else if (e.code === "ArrowDown") keyCode = 1;
+        else if (e.code === "ArrowLeft") keyCode = 2;
+        else if (e.code === "ArrowRight") keyCode = 3;
+        else if (e.code === "Space") keyCode = 4;
+
+        if(keyCode == -1)
+          return;
+
+        switch(keyCode){
+          case 0:
+            document.getElementById("iron_man").style.backgroundImage = "url('../media/up.png')";
+            break;
+          case 1:
+            document.getElementById("iron_man").style.backgroundImage = "url('../media/down.png')";
+            break;
+          case 2:
+            document.getElementById("iron_man").style.backgroundImage = "url('../media/left.png')";
+            break;
+          case 3:
+            document.getElementById("iron_man").style.backgroundImage = "url('../media/right.png')";
+            break;
+          case 4:
+            document.getElementById("iron_man").style.backgroundImage = "url('../media/space.png')";
+            break;
+          default:
+            console.log("error");
+            break;
+        }
       });
     }
 });

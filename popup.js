@@ -37,7 +37,7 @@ chrome.storage.local.get(['date'], function(result) {
     });
 
     var onoffcheckbox = document.getElementById("onoffbutton");
-    onoffcheckbox.addEventListener( 'change', function() {
+    onoffcheckbox.addEventListener('change', function() {
         if(this.checked) {
             chrome.storage.local.set({'activated': 1});
             chrome.storage.local.set({'date': 0});        
