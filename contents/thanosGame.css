@@ -80,7 +80,7 @@ body {
     top: 36%;
 
     background: url('../media/1_thanos_paint.png');
-    background-size: 100%, 100%;
+    background-size: contain;
     background-repeat: no-repeat;
 }
 
