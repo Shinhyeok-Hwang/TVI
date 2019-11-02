@@ -103,11 +103,9 @@ body {
 #message_eng {
     font-size: 30px;
     color: #FFFFFF;
-    font-weight: bold;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 #message_kor {
     font-size: 15px;
-    font-weight: bold;
+    color: #FFFFFF;
 }
