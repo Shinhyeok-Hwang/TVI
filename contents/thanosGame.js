@@ -119,7 +119,8 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
 			  play();
 		  }
           if(pos == commandNum){
-            outputString = "Done!";
+            outputString = "I love you " + ironman_love;
+            console.log(outputString);
             clearInterval(downloadTimer);
             chrome.storage.local.set({'activated': 0});1
             chrome.storage.local.set({'date': (new Date()).getTime() });
@@ -130,7 +131,6 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
                     chrome.tabs.update(tabs[0].id, { url: "chrome://newtab" });
                 })
             }, 1000);
-
           }
         }
         else{
