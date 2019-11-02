@@ -130,9 +130,6 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
         if(pos == commandNum)
           return;
 
-		document.getElementById("iron_man").style.transform = 'rotate(' + getRandomIntInclusive(-60,60) +'deg)';
-		document.getElementById("thanos").style.transform = 'rotate(' + getRandomIntInclusive(-60,60) +'deg)';
-
         var keyCode = -1;
         if (e.code === "ArrowUp")        keyCode = 0;
         else if (e.code === "ArrowDown") keyCode = 1;
@@ -178,6 +175,8 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
           else{
             document.getElementById("img_grid").children[pos-1].style.visibility = 'hidden';
             document.getElementById("thanos").style.backgroundImage = "url('../media/thanoshit.png')";
+    		document.getElementById("iron_man").style.transform = 'rotate(' + getRandomIntInclusive(-60,60) +'deg)';
+    		document.getElementById("thanos").style.transform = 'rotate(' + getRandomIntInclusive(-60,60) +'deg)';
           }
         }
         else{
