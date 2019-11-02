@@ -54,7 +54,8 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
       document.getElementById("bgmplayer").autoplay = 0;
     }
     else{
-      document.getElementById("bgmplayer").autoplay = autoplay;
+	  document.getElementById("bgmplayer").autoplay = autoplay;
+	  
       if(inevitable > 0){
         document.getElementById("message_eng").innerHTML = "I am inevitable.";
         document.getElementById("message_kor").innerHTML = "나는 필연적이다.";
@@ -69,9 +70,23 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
         if(timeleft <= 0){
           if(pos != commandNum){
             document.getElementById('cmd').innerHTML = "dead"
-            document.getElementById('background').style.backgroundImage = 'url(../media/thanos_snap.gif)';
+			document.getElementById('background').style.backgroundImage = 'url(../media/thanos_snap.gif)';
+			document.getElementById('iron_man').style.visibility = 'hidden';
+			document.getElementById('thanos').style.visibility = 'hidden';
+			document.getElementById('command').style.visibility = 'hidden';
+			document.getElementById('timer').style.visibility = 'hidden';
+			document.getElementById('message_bar').style.visibility = 'hidden';
+			document.getElementById("bgmplayer").pause();
+
             pos = commandNum;
-            setTimeout(snapTabs, 5000);
+			setTimeout(snapTabs, 5000);
+			
+			setTimeout(function(){
+                chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+                    chrome.tabs.update(tabs[0].id, { url: "chrome://newtab" });
+                })
+			}, 5020);
+			
           }
           clearInterval(downloadTimer);
         }
@@ -99,11 +114,14 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
 
         if(commands[pos] == keyCode){
           pos++;
-          document.getElementById("img_grid").children[pos-1].style.visibility = 'hidden';
+		  document.getElementById("img_grid").children[pos-1].style.visibility = 'hidden';
+		  if(document.getElementById("bgmplayer").autoplay){
+			  play();
+		  }
           if(pos == commandNum){
             outputString = "Done!";
             clearInterval(downloadTimer);
-            chrome.storage.local.set({'activated': 0});
+            chrome.storage.local.set({'activated': 0});1
             chrome.storage.local.set({'date': (new Date()).getTime() });
             chrome.storage.local.set({'inevitable': 0});
             document.getElementById("bgmplayer").pause();
@@ -116,11 +134,25 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
           }
         }
         else{
-          outputString = "dead";
-          pos = commandNum;
-          document.getElementById('background').style.backgroundImage = 'url(../media/thanos_snap.gif)';
-          clearInterval(downloadTimer);
-          setTimeout(snapTabs, 5000);
+			outputString = "dead";
+			pos = commandNum;
+			document.getElementById('cmd').innerHTML = "dead"
+			document.getElementById('background').style.backgroundImage = 'url(../media/thanos_snap.gif)';
+			document.getElementById('iron_man').style.visibility = 'hidden';
+			document.getElementById('thanos').style.visibility = 'hidden';
+			document.getElementById('command').style.visibility = 'hidden';
+			document.getElementById('timer').style.visibility = 'hidden';
+			document.getElementById('message_bar').style.visibility = 'hidden';
+			document.getElementById("bgmplayer").pause();
+
+			clearInterval(downloadTimer);
+			setTimeout(snapTabs, 5000);
+
+			setTimeout(function(){
+                chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+                    chrome.tabs.update(tabs[0].id, { url: "chrome://newtab" });
+                })
+			}, 5020);
         }
 
         //document.getElementById('cmd').innerHTML = outputString;
@@ -184,7 +216,7 @@ function snapTabs(){
     chrome.storage.local.set({'activated': 0});
     chrome.storage.local.set({'inevitable': 0});
     chrome.storage.local.set({'date': (new Date()).getTime() });
-    document.getElementById("bgmplayer").pause();
+    
   });
 }
 
@@ -204,3 +236,14 @@ function shuffle(a) {
     }
     return a;
 }
+
+function play() { 
+    var audio = document.getElementById('audio_play'); 
+    if (audio.paused) { 
+        audio.play(); 
+    }else{ 
+		audio.pause();
+		audio.play();
+        audio.currentTime = 0 
+    } 
+} 
