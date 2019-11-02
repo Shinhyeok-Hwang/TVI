@@ -2,6 +2,7 @@ var activated = 0;
 var thanos_power = 2;
 var thanos_vacation = 100;
 var ironman_love = 3000;
+var inevitable = 0;
 
 var inputs = ['up', 'down', 'left', 'right', 'space'];
 var pos = 0;
@@ -26,7 +27,6 @@ preload(
 
 chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironman_love', 'date', 'inevitable', 'autoplay'],
   function(result){
-    var inevitable = 0;
     thanos_power = result.thanos_power;
     thanos_vacation = result.thanos_vacation;
     ironman_love = result.ironman_love;
@@ -64,9 +64,7 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
       activated = 0;
       chrome.storage.local.set({'activated': 0});
     }
-
     console.log(result);
-
 
     if(activated == 0){
       document.getElementById("background").style.backgroundImage = "url(../media/sleepingThanos.png)";
@@ -74,14 +72,14 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
       document.getElementById("bgmplayer").autoplay = 0;
     }
     else{
-      document.getElementById("bgmplayer").autoplay = autoplay;
-      if(inevitable == 1){
-        chrome.storage.local.set({'inevitable': 0});
+	  document.getElementById("bgmplayer").autoplay = autoplay;
+	  
+      if(inevitable > 0){
         document.getElementById("message_eng").innerHTML = "I am inevitable.";
         document.getElementById("message_kor").innerHTML = "나는 필연적이다.";
       }
 
-      commandNum = 5 * thanos_power + getRandomIntInclusive(-1, 1);
+      commandNum = 5 * thanos_power + getRandomIntInclusive(-1, 1) + 3 * inevitable;
 
       var timeleft = 100; // 10 sec
       var downloadTimer = setInterval(function(){
@@ -90,9 +88,23 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
         if(timeleft <= 0){
           if(pos != commandNum){
             document.getElementById('cmd').innerHTML = "dead"
-            document.getElementById("thanos").style.backgroundImage = "url('../media/1_thanos_paint.png')";
+			document.getElementById('background').style.backgroundImage = 'url(../media/thanos_snap.gif)';
+			document.getElementById('iron_man').style.visibility = 'hidden';
+			document.getElementById('thanos').style.visibility = 'hidden';
+			document.getElementById('command').style.visibility = 'hidden';
+			document.getElementById('timer').style.visibility = 'hidden';
+			document.getElementById('message_bar').style.visibility = 'hidden';
+			document.getElementById("bgmplayer").pause();
+
             pos = commandNum;
-            setTimeout(snapTabs, 1000);
+			setTimeout(snapTabs, 5000);
+			
+			setTimeout(function(){
+                chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+                    chrome.tabs.update(tabs[0].id, { url: "chrome://newtab" });
+                })
+			}, 5020);
+			
           }
           clearInterval(downloadTimer);
         }
@@ -122,13 +134,23 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
 
         if(commands[pos] == keyCode){
           pos++;
+		  document.getElementById("img_grid").children[pos-1].style.visibility = 'hidden';
+		  if(document.getElementById("bgmplayer").autoplay){
+			  play();
+		  }
           if(pos == commandNum){
-            outputString = "Done!";
+            outputString = "I love you " + ironman_love;
+            console.log(outputString);
             clearInterval(downloadTimer);
-            chrome.storage.local.set({'activated': 0});
+            chrome.storage.local.set({'activated': 0});1
             chrome.storage.local.set({'date': (new Date()).getTime() });
+            chrome.storage.local.set({'inevitable': 0});
             document.getElementById("bgmplayer").pause();
-            chrome.tabs.update(tabId, { url: chrome.runtime.getURL("chrome://newtab") });
+            setTimeout(function(){
+                chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+                    chrome.tabs.update(tabs[0].id, { url: "chrome://newtab" });
+                })
+            }, 1000);
           }
           else{
             document.getElementById("img_grid").children[pos-1].style.visibility = 'hidden';
@@ -136,14 +158,28 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
           }
         }
         else{
-          outputString = "dead";
-          document.getElementById("thanos").style.backgroundImage = "url('../media/1_thanos_paint.png')";
-          pos = commandNum;
-          clearInterval(downloadTimer);
-          setTimeout(snapTabs, 1000);
+			outputString = "dead";
+			pos = commandNum;
+			document.getElementById('cmd').innerHTML = "dead"
+			document.getElementById('background').style.backgroundImage = 'url(../media/thanos_snap.gif)';
+			document.getElementById('iron_man').style.visibility = 'hidden';
+			document.getElementById('thanos').style.visibility = 'hidden';
+			document.getElementById('command').style.visibility = 'hidden';
+			document.getElementById('timer').style.visibility = 'hidden';
+			document.getElementById('message_bar').style.visibility = 'hidden';
+			document.getElementById("bgmplayer").pause();
+
+			clearInterval(downloadTimer);
+			setTimeout(snapTabs, 5000);
+
+			setTimeout(function(){
+                chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+                    chrome.tabs.update(tabs[0].id, { url: "chrome://newtab" });
+                })
+			}, 5020);
         }
 
-        document.getElementById('cmd').innerHTML = outputString;
+        //document.getElementById('cmd').innerHTML = outputString;
       });
       document.addEventListener('keydown', (e) => {
         if(pos == commandNum){
@@ -184,6 +220,16 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
     }
 });
 
+window.addEventListener("beforeunload", function(event) {
+  if(activated == 1 && pos != commandNum){
+    chrome.storage.local.set({'inevitable': inevitable+1});
+    chrome.tabs.create({});
+  }
+});
+
+/////////////////////////////////////////////////////////////////////////
+// Below are functions
+
 function printCommands(commands){
   var cmdString = "";
   cmdString += `
@@ -218,13 +264,6 @@ function printCommands(commands){
   document.getElementById("cmd").innerHTML = cmdString;
 }
 
-window.addEventListener("beforeunload", function(event) {
-  if(activated == 1 && pos != commandNum){
-    chrome.storage.local.set({'inevitable': 1});
-    chrome.tabs.create({});
-  }
-});
-
 function snapTabs(){
   chrome.tabs.query({}, function (tabs) {
     tabNum = tabs.length;
@@ -235,8 +274,9 @@ function snapTabs(){
     }
     chrome.tabs.remove(snappedTabs);
     chrome.storage.local.set({'activated': 0});
+    chrome.storage.local.set({'inevitable': 0});
     chrome.storage.local.set({'date': (new Date()).getTime() });
-    document.getElementById("bgmplayer").pause();
+    
   });
 }
 
@@ -256,3 +296,14 @@ function shuffle(a) {
     }
     return a;
 }
+
+function play() { 
+    var audio = document.getElementById('audio_play'); 
+    if (audio.paused) { 
+        audio.play(); 
+    }else{ 
+		audio.pause();
+		audio.play();
+        audio.currentTime = 0 
+    } 
+} 

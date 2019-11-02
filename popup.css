@@ -115,6 +115,26 @@ input:checked + .button:before {
     width: 250px;
 }
 
+#mute {
+    display: inline-block;
+    float: right;
+}
+
+#mute_text {
+    display: inline-block;
+    margin-left: 7px;
+}
+
+#onoff {
+    display: inline-block;
+    float: right;
+}
+
+#onoff_text {
+    display: inline-block;
+    margin-left: 7px;
+}
+
 hr { 
     display: block;
     margin-top: 0.5em;
