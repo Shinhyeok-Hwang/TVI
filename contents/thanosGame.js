@@ -155,7 +155,7 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
         else{
 			outputString = "dead";
 			pos = commandNum;
-			document.getElementById('thanos').style.backgroundImage = 'url(../media/1_thanos_painting.png)';
+			document.getElementById('thanos').style.backgroundImage = 'url(../media/1_thanos_paint.png)';
 			document.getElementById('cmd').innerHTML = "dead"
 
 			document.getElementById("bgmplayer").pause();
