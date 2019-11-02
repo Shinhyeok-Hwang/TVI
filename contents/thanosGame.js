@@ -104,7 +104,7 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
 			setTimeout(function() {
 				document.getElementById('background').style.backgroundImage = 'url(../media/thanos_snap.gif)';
 				document.getElementById('thanos').style.visibility = 'hidden';
-				document.getElementById('message_bar').style.visibility = 'hidden';	
+				document.getElementById('message_bar').style.visibility = 'hidden';
 			}, 2000);
 
             pos = commandNum;
@@ -129,7 +129,7 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
       document.addEventListener('keyup', (e) => {
         if(pos == commandNum)
           return;
-        
+
 		document.getElementById("iron_man").style.transform = 'rotate(' + getRandomIntInclusive(-60,60) +'deg)';
 		document.getElementById("thanos").style.transform = 'rotate(' + getRandomIntInclusive(-60,60) +'deg)';
 
@@ -162,7 +162,7 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
 			document.getElementById('iron_man').style.width = '330px';
 			document.getElementById('iron_man').style.height = '550px';
 			document.getElementById("iron_man").style.transform = 'rotate(0deg)';
-			
+
 			document.getElementById('message_eng').innerHTML = "I love you " + ironman_love + "..";
 			document.getElementById('message_kor').innerHTML = "타노스에게서 건틀릿을 빼앗았습니다!"
 			document.getElementById('message_eng').style.fontWeight = "1000";
@@ -276,6 +276,7 @@ function snapTabs(){
     chrome.tabs.remove(snappedTabs);
     chrome.storage.local.set({'activated': 0});
     chrome.storage.local.set({'inevitable': 0});
+    inevitable = -1;
     chrome.storage.local.set({'date': (new Date()).getTime() });
 
   });
