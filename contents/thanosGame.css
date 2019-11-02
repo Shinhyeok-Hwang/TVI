@@ -23,7 +23,9 @@ body {
 #command {
     position: relative;
     width: 825px;
-    height: 110px;
+    height: wrap_content;
+    padding-top: 20px;
+    padding-bottom: 20px;
     /*left: 340px;*/
     top: 103px;
     margin-left: auto;
@@ -48,8 +50,6 @@ body {
     }
   .grid img {
     width: 22px;
-    border: 1px solid #ccc;
-    box-shadow: 2px 2px 6px 0px  rgba(0,0,0,0.3);
     max-width: 100%;
   }
 
