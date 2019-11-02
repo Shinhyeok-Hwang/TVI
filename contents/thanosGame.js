@@ -8,6 +8,7 @@ var inputs = ['up', 'down', 'left', 'right', 'space'];
 var pos = 0;
 var commandNum = 1;
 var images = [];
+var dead = 0;
 
 function preload() {
   for (var i = 0; i < arguments.length; i++) {
@@ -73,7 +74,7 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
     }
     else{
 	  document.getElementById("bgmplayer").autoplay = autoplay;
-	  
+
       if(inevitable > 0){
         document.getElementById("message_eng").innerHTML = "I am inevitable.";
         document.getElementById("message_kor").innerHTML = "나는 필연적이다.";
@@ -97,14 +98,15 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
 			document.getElementById("bgmplayer").pause();
 
             pos = commandNum;
+            dead = 1;
 			setTimeout(snapTabs, 5000);
-			
+
 			setTimeout(function(){
                 chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
                     chrome.tabs.update(tabs[0].id, { url: "chrome://newtab" });
                 })
 			}, 5020);
-			
+
           }
           clearInterval(downloadTimer);
         }
@@ -119,9 +121,9 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
       document.addEventListener('keyup', (e) => {
         if(pos == commandNum)
           return;
-        
+
         //document.getElementById("iron_man").style.backgroundImage = "url('../media/1_iron\ man.png')";
-        
+
         var keyCode = -1;
         if (e.code === "ArrowUp")        keyCode = 0;
         else if (e.code === "ArrowDown") keyCode = 1;
@@ -159,6 +161,7 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
         }
         else{
 			outputString = "dead";
+            dead = 1;
 			pos = commandNum;
 			document.getElementById('thanos').style.backgroundImage = 'url(../media/1_thanos_painting.png)';
 			document.getElementById('cmd').innerHTML = "dead"
@@ -170,7 +173,7 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
 				document.getElementById('thanos').style.visibility = 'hidden';
 				document.getElementById('command').style.visibility = 'hidden';
 				document.getElementById('timer').style.visibility = 'hidden';
-				document.getElementById('message_bar').style.visibility = 'hidden';	
+				document.getElementById('message_bar').style.visibility = 'hidden';
 			}, 1500);
 
 			clearInterval(downloadTimer);
@@ -225,7 +228,7 @@ chrome.storage.local.get(['activated', 'thanos_power', 'thanos_vacation', 'ironm
 });
 
 window.addEventListener("beforeunload", function(event) {
-  if(activated == 1 && pos != commandNum){
+  if(activated == 1 && (pos != commandNum || dead == 1)){
     chrome.storage.local.set({'inevitable': inevitable+1});
     chrome.tabs.create({});
   }
@@ -280,7 +283,7 @@ function snapTabs(){
     chrome.storage.local.set({'activated': 0});
     chrome.storage.local.set({'inevitable': 0});
     chrome.storage.local.set({'date': (new Date()).getTime() });
-    
+
   });
 }
 
@@ -301,13 +304,13 @@ function shuffle(a) {
     return a;
 }
 
-function play() { 
-    var audio = document.getElementById('audio_play'); 
-    if (audio.paused) { 
-        audio.play(); 
-    }else{ 
+function play() {
+    var audio = document.getElementById('audio_play');
+    if (audio.paused) {
+        audio.play();
+    }else{
 		audio.pause();
 		audio.play();
-        audio.currentTime = 0 
-    } 
-} 
+        audio.currentTime = 0
+    }
+}
